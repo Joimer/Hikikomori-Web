@@ -1,0 +1,80 @@
+<html>
+<head>
+	<title>Hikikomori Simulator</title>
+</head>
+
+<body>
+<h1 title='Tamagotchi meets crippling depression!'>Hikikomori Simulator</h1>
+<div id='body' style='width:100%; height:95%;'>
+	<div style="float:left; width:20%">
+		<span id='hp-name' title='Your health.'>HP</span>: <span id='hp-marker'>100</span>%<br />
+		<span id='depression-name' title='Does life have meaning? Why do I exist? Would anyone even miss me?'>Depression</span>: <span id='depression-marker'>70</span>%<br />
+		<span id='fear-name' title="The pressure outside is too much. They will mock me. I won't survive.">Fear</span>: <span id='fear-marker'>70</span>%<br />
+		<span id='shame-name' title='How can I show my face being such a loser?'>Shame</span>: <span id='shame-marker'>60</span>%<br />
+		<span id='sleep-name' title="Sleeping keeps you alive and rested. Sometimes it's all you can do.">Sleep</span>: <span id='sleep-marker'>25</span>%<br />
+		<span id='hunger-name' title='Need to eat.'>Hunger</span>: <span id='hunger-marker'>0</span>%<br />
+		<span id='bladder-name' title='Need to pee.'>Bladder</span>: <span id='bladder-marker'>10</span>%<br />
+		<span id='execration-name' title='Need to take a crap.'>Execration</span>: <span id='execration-marker'>10</span>%<br />
+		<br />
+		<div style="border: 1px solid #000;">
+			Day <span id='day'>1</span><br />
+			<span id='hour'>10</span>:<span id='minute'>00</span>
+		</div>
+	</div>
+
+	<div style="float:right; width:75%">
+		<div id='options' style="float:left; width:20%;">
+			<h2>Bed</h2>
+			<p>
+				<input type="button" id="bed-watch" value="Watch bed" />
+				<input type="button" id="bed-use" value="Use bed" />
+			</p>
+			<h2>Manga library</h2>
+			<p>
+				<input type="button" id="manga-library-watch" value="Watch Library" />
+				<input type="button" id="manga-library-use" value="Read some manga" />
+			</p>
+			<h2>Anime library</h2>
+			<p>
+				<input type="button" id="anime-library-watch" value="Watch Library" />
+				<input type="button" id="anime-library-use" value="Watch some anime" />
+			</p>
+			<h2>Computer</h2>
+			<p>
+				<input type="button" id="imageboard-toggle" value="Navigate Imageboards" />
+				<span id="imageboard-options" style="display:none;">
+					<input type="button" id="imageboard-shitpost" value="Shitpost :^)" /><br />
+					<input type="button" id="imageboard-informed" value="Write and read informed posts" /><br />
+					<input type="button" id="imageboard-memes" value="Dank memes" /><br />
+					<input type="button" id="imageboard-creepy" value="Read creepypastas" />
+				</span>
+				<input type="button" id="computer-vidya" value="Play videogames" />
+				<input type="button" id="computer-forums" value="Read forums" />
+				<input type="button" id="computer-tvs" value="Watch TV Series" />
+				<span id='pc-get-help-span' style='display:none;'>
+					<input type="button" id="computer-get-help" value="Get on-line help" />
+				</span>
+			</p>
+			<h2>Knot</h2>
+			<p>
+				<input type="button" id="knot-watch" value="Watch Knot" />
+			</p>
+			<h2>Door</h2>
+			<p>
+				<input type="button" id="door" value="Use Door" />
+			</p>
+		</div>
+		<div id='text' style="float:right; width:75%; overflow:auto;"></div>
+	</div>
+</div>
+<div id='footer' style='width:95%; height:4%; border:1px solid #444; text-align:center; margin: 0 auto;'>
+	2018 <a href='https://mantisshrimp.studio/'>Mantis Shrimp Studio</a> - BSD License
+</div>
+</body>
+<script type="text/javascript" src="sugar.js"></script>
+<script type="text/javascript" src="clock.js"></script>
+<script type="text/javascript" src="text.js"></script>
+<script type="text/javascript" src="anime.js"></script>
+<script type="text/javascript" src="manga.js"></script>
+<script type="text/javascript" src="hikikomori.js"></script>
+</html>
