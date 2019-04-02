@@ -172,8 +172,13 @@ click('imageboard-toggle', () => {
 });
 
 click('imageboard-shitpost', () => {
-	clock.addMinutes(15);
+	let shitpost = Shitposting[rand(0, Shitposting.length - 1)];
+	clock.addMinutes(shitpost.duration);
 	write(Text.Shitposting);
+	write(Text[shitpost.id]);
+	depression += shitpost.effects.depression;
+	shame += shitpost.effects.shame;
+	fear += shitpost.effects.fear;
 
 	updateStats();
 	updateClock();

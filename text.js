@@ -12,5 +12,9 @@ const Text = {
 		+ "All kind of genres and demographics here, you sure don't overlook titles by those metrics.",
 	ReadManga: "You read %s for %t minutes.",
 	WatchAnime: "You watch %s for %t minutes.",
-	Shitposting: "Shitposting comes to you as naturally as breathing."
+	Shitposting: "Shitposting comes to you as naturally as breathing.",
+	Frogposting: "Frogposting it is. Truly a new low in your daily hikikomori life.",
+	Gotoreddit: "<em>&gt;&gt;&gt;/reddit/</em>, you furiously type, implying the other person's website of choice shouldn't be the same as yours.",
+	Youbait: "(You)",
+	Shounenshitting: "You spend an hour and half arguing which battle shounen is worse, despite actually having watched them all at 2x speed while eating crisps, except that one you hardly remember from your childhood.",
 };
