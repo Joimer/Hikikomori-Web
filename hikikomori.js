@@ -24,6 +24,12 @@ let watchingAnime = null;
 const MANGA_MOST = 240;
 const ANIME_MOST = 300;
 
+// we update method pattern boys
+function update() {
+	updateStats();
+	updateClock();
+}
+
 function updateStats() {
 	set('hp-marker', hp);
 	set('depression-marker', depression);
@@ -115,8 +121,7 @@ click('manga-library-use', () => {
 	fear += manga.effects.fear;
 	write(Text.ReadManga.replace('%s', manga.title).replace('%t', t));
 
-	updateStats();
-	updateClock();
+	update();
 });
 
 click('anime-library-use', () => {
@@ -157,8 +162,7 @@ click('anime-library-use', () => {
 	fear += anime.effects.fear;
 	write(Text.WatchAnime.replace('%s', anime.title).replace('%t', t));
 
-	updateStats();
-	updateClock();
+	update();
 });
 
 // TODO: Drop anime and manga.
@@ -180,50 +184,42 @@ click('imageboard-shitpost', () => {
 	shame += shitpost.effects.shame;
 	fear += shitpost.effects.fear;
 
-	updateStats();
-	updateClock();
+	update();
 });
 
 click('imageboard-informed', () => {
 
-	updateStats();
-	updateClock();
+	update();
 });
 
 click('imageboard-memes', () => {
 	
-	updateStats();
-	updateClock();
+	update();
 });
 
 click('imageboard-creepy', () => {
 	
-	updateStats();
-	updateClock();
+	update();
 });
 
 click('computer-vidya', () => {
 	
-	updateStats();
-	updateClock();
+	update();
 });
 
 click('computer-forums', () => {
 	
-	updateStats();
-	updateClock();
+	update();
 });
 
 click('computer-tvs', () => {
 	
-	updateStats();
-	updateClock();
+	update();
 });
 
 click('computer-get-help', () => {
 	
-	updateStats();
-	updateClock();
+	update();
 });
 
 // Start-up the game once everything's been defined.
