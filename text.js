@@ -11,4 +11,6 @@ const Text = {
 	AnimeLibraryWatch: "Plenty of BDs and even some older DVDs. "
 		+ "All kind of genres and demographics here, you sure don't overlook titles by those metrics.",
 	ReadManga: "You read %s for %t minutes.",
+	WatchAnime: "You watch %s for %t minutes.",
+	Shitposting: "Shitposting comes to you as naturally as breathing."
 };

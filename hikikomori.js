@@ -17,10 +17,12 @@ let execrate = 10;
 let lastAction = 0;
 let mangaCooldown = 0;
 let reading = null;
+let watching = null;
 let animeCooldown = 0;
 let watchingAnime = null;
 
 const MANGA_MOST = 240;
+const ANIME_MOST = 300;
 
 function updateStats() {
 	set('hp-marker', hp);
@@ -117,12 +119,106 @@ click('manga-library-use', () => {
 	updateClock();
 });
 
+click('anime-library-use', () => {
+	let time = 0;
+	let t = 0;
+	let anime = {};
+	if (watching === null) {
+		let r = rand(0, Anime.length - 1);
+		anime = Anime[r];
+		// A good otaku watches both opening and ending sequences.
+		time = 24 * anime.episodes;
+		if (time > ANIME_MOST) {
+			watching = {anime: anime, times: 1};
+		}
+		t = clamp(time, 0, ANIME_MOST);
+	} else {
+		anime = watching.anime;
+		time = 20 * anime.episodes;
+		let timeWatched = watching.times * ANIME_MOST;
+		let left = time - timeWatched;
+		// Minimum of 2 minutes to finish the last pages.
+		if (left < 2) {
+			left = 2;
+		}
+		// Finish watching or continue depending on how much is left.
+		if (left < ANIME_MOST) {
+			t = left;
+			watching = null;
+		} else {
+			t = ANIME_MOST;
+			watching.times++;
+		}
+	}
+
+	clock.addMinutes(t);
+	depression += anime.effects.depression;
+	shame += anime.effects.shame;
+	fear += anime.effects.fear;
+	write(Text.WatchAnime.replace('%s', anime.title).replace('%t', t));
+
+	updateStats();
+	updateClock();
+});
+
+// TODO: Drop anime and manga.
+
 click('imageboard-toggle', () => {
 	if ($('imageboard-options').style.display === 'none') {
 		show('imageboard-options');
 	} else {
 		hide('imageboard-options');
 	}
+});
+
+click('imageboard-shitpost', () => {
+	clock.addMinutes(15);
+	write(Text.Shitposting);
+
+	updateStats();
+	updateClock();
+});
+
+click('imageboard-informed', () => {
+
+	updateStats();
+	updateClock();
+});
+
+click('imageboard-memes', () => {
+	
+	updateStats();
+	updateClock();
+});
+
+click('imageboard-creepy', () => {
+	
+	updateStats();
+	updateClock();
+});
+
+click('computer-vidya', () => {
+	
+	updateStats();
+	updateClock();
+});
+
+click('computer-forums', () => {
+	
+	updateStats();
+	updateClock();
+});
+
+click('computer-tvs', () => {
+	
+	updateStats();
+	updateClock();
+});
+
+click('computer-get-help', () => {
+	
+	updateStats();
+	updateClock();
 });
 
 // Start-up the game once everything's been defined.
