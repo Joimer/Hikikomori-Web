@@ -211,7 +211,7 @@ click('imageboard-shitpost', () => {
 });
 
 click('imageboard-informed', () => {
-
+	write(Text.InformedPosts);
 	update();
 });
 

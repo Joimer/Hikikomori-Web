@@ -19,5 +19,6 @@ const Text = {
 	Shounenshitting: "You spend an hour and half arguing which battle shounen is worse, despite actually having watched them all at 2x speed while eating crisps, except that one you hardly remember from your childhood.",
 	NotTired: "You are not tired enough to sleep yet.",
 	Sleep: "You sleep soundly for eight hours.",
-	WakeUp: "You wake up, the existential dread switfly back in your mind."
+	WakeUp: "You wake up, the existential dread switfly back in your mind.",
+	InformedPosts: "Who are you kidding? You don't know enough about anything to write an informed opinion."
 };
