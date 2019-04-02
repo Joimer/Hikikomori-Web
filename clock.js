@@ -24,9 +24,13 @@ class Clock {
 	}
 
 	addHour() {
-		this.hour++;
-		if (this.hour === 24) {
-			this.hour = 0;
+		this.addHours(1);
+	}
+
+	addHours(i) {
+		this.hour += i;
+		if (this.hour > 23) {
+			this.hour -= 24;
 			this.day++;
 		}
 	}

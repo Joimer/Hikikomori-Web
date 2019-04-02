@@ -30,3 +30,7 @@ function hide(id) {
 function show(id) {
 	$(id).style.display = '';
 }
+
+function round(n, dec) {
+	return +n.toFixed(2);
+}

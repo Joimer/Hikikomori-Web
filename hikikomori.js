@@ -3,14 +3,23 @@
 // This isn't minified either because I don't think it's worth the effort in this specific case.
 
 // Game values.
+// Last time the game values were updated.
 let lastUpdate = 0;
+// Delta time: time that passed between updates.
 let dt = 0.0;
+// In-game clock.
 let clock = new Clock();
+// Player values.
 let hp = 100;
 let depression = 70;
 let fear = 70;
 let shame = 60;
-let sleep = 25;
+let sleepDebt = 0;
+// Number of hours the hikikomori can stand up without sleeping.
+// As long as health permits it.
+const maxWake = 72;
+const sleepPerHour = 100 / maxWake;
+let sleep = sleepPerHour;
 let hunger = 0;
 let bladder = 10;
 let execrate = 10;
@@ -31,11 +40,11 @@ function update() {
 }
 
 function updateStats() {
-	set('hp-marker', hp);
+	set('hp-marker', round(hp, 2));
 	set('depression-marker', depression);
 	set('fear-marker', fear);
 	set('shame-marker', shame);
-	set('sleep-marker', sleep);
+	set('sleep-marker', round(sleep, 2));
 	set('hunger-marker', hunger);
 	set('bladder-marker', bladder);
 	set('execration-marker', execrate);
@@ -67,6 +76,20 @@ click('knot-watch', () => {
 
 click('bed-watch', () => {
 	write(Text.BedWatch);
+});
+
+click('bed-use', () => {
+	if (sleep < 22.2) {
+		write(Text.NotTired);
+	} else {
+		// TODO: The more depressed, the more you sleep.
+		let sleepHours = 8;
+		sleep -= sleepPerHour * sleepHours;
+		clock.addHours(sleepHours);
+		write(Text.Sleep);
+		update();
+		write(Text.WakeUp);
+	}
 });
 
 click('door', () => {
@@ -115,7 +138,7 @@ click('manga-library-use', () => {
 		}
 	}
 
-	clock.addMinutes(t);
+	addMinutes(t);
 	depression += manga.effects.depression;
 	shame += manga.effects.shame;
 	fear += manga.effects.fear;
@@ -156,7 +179,7 @@ click('anime-library-use', () => {
 		}
 	}
 
-	clock.addMinutes(t);
+	addMinutes(t);
 	depression += anime.effects.depression;
 	shame += anime.effects.shame;
 	fear += anime.effects.fear;
@@ -177,7 +200,7 @@ click('imageboard-toggle', () => {
 
 click('imageboard-shitpost', () => {
 	let shitpost = Shitposting[rand(0, Shitposting.length - 1)];
-	clock.addMinutes(shitpost.duration);
+	addMinutes(shitpost.duration);
 	write(Text.Shitposting);
 	write(Text[shitpost.id]);
 	depression += shitpost.effects.depression;
@@ -222,18 +245,24 @@ click('computer-get-help', () => {
 	update();
 });
 
+function addMinutes(m) {
+	clock.addMinutes(m);
+	sleep += sleepPerHour / 60 * m;
+}
+
 // Start-up the game once everything's been defined.
 (() => {
 	// Load game state, if any, here.
 	write(Text.Welcome);
 	lastUpdate = Date.now();
+	update();
 	window.setInterval(() => {
 		dt += (Date.now() - lastUpdate) / 1000.0;
 		// Every second is a minute in-game.
 		if (dt >= 1.0) {
-			clock.addMinute();
+			addMinutes(1);
 			dt -= 1.0;
-			updateClock();
+			update();
 		}
 		lastUpdate = Date.now();
 	}, 1000 / 60);
