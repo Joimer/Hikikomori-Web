@@ -35,5 +35,6 @@ const Anime = [
 			shame: -1,
 			fear: 0
 		}
-	}
+	},
+
 ];

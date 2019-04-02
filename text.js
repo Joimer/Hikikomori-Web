@@ -9,6 +9,6 @@ const Text = {
 	MangaLibraryWatch: "Aaaah, your manga library, one of the few things you are proud of. "
 		+ "Paid by the few wages you got that short time you were brave enough to face the world by yourself.",
 	AnimeLibraryWatch: "Plenty of BDs and even some older DVDs. "
-		+ "All kind of genres and demographics here, you sure don't denostate titles by those metrics.",
+		+ "All kind of genres and demographics here, you sure don't overlook titles by those metrics.",
 	ReadManga: "You read %s for %t minutes.",
 };

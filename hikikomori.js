@@ -75,30 +75,38 @@ click('anime-library-watch', () => {
 });
 
 click('manga-library-use', () => {
+	let time = 0;
+	let t = 0;
+	let manga = {};
 	if (reading === null) {
 		let r = rand(0, Manga.length - 1);
-		let manga = Manga[r];
-		
-		// Each chapter takes time to read.
-		let time = 20 * manga.chapters;
+		manga = Manga[r];
+
+		// Each chapter takes 20 minutes to read in average.
+		time = 20 * manga.chapters;
 		if (time > MANGA_MOST) {
 			reading = {manga: manga, times: 1};
 		}
+		t = clamp(time, 0, MANGA_MOST);
 	} else {
-		let manga = reading.manga;
-		let time = 20 * manga.chapters;
+		manga = reading.manga;
+		time = 20 * manga.chapters;
 		let timeRead = reading.times * MANGA_MOST;
 		let left = time - timeRead;
-		// total - read = lo que queda
-		// remainder = lo que queda - time
+		// Minimum of 2 minutes to finish the last pages.
+		if (left < 2) {
+			left = 2;
+		}
+		// Finish reading or continue depending on how much is left.
 		if (left < MANGA_MOST) {
+			t = left;
 			reading = null;
 		} else {
-			reading.manga.times++;
+			t = MANGA_MOST;
+			reading.times++;
 		}
 	}
 
-	let t = clamp(time, 0, MANGA_MOST);
 	clock.addMinutes(t);
 	depression += manga.effects.depression;
 	shame += manga.effects.shame;
@@ -116,8 +124,6 @@ click('imageboard-toggle', () => {
 		hide('imageboard-options');
 	}
 });
-
-
 
 // Start-up the game once everything's been defined.
 (() => {
