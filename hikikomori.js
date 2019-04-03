@@ -78,11 +78,13 @@ click('bed-watch', () => {
 	write(Text.BedWatch);
 });
 
+// TODO: Add cooldown for sleeping twice in a row after an all nighter.
 click('bed-use', () => {
-	if (sleep < 22.2) {
+	if (sleep < 19) {
 		write(Text.NotTired);
 	} else {
 		// TODO: The more depressed, the more you sleep.
+		// With negative effects, of course.
 		let sleepHours = 8;
 		sleep -= sleepPerHour * sleepHours;
 		clock.addHours(sleepHours);
@@ -257,6 +259,7 @@ click('computer-get-help', () => {
 	update();
 });
 
+// TODO: Check clock I think the hour addition is not working properly.
 function addMinutesAndSleep(m) {
 	clock.addMinutes(m);
 	sleep += sleepPerHour / 60 * m;
@@ -265,7 +268,16 @@ function addMinutesAndSleep(m) {
 // Check how many hours they've been awake.
 // If it's in the limit, they fall down asleep, with more negative consequences.
 function checkSleepyness() {
-
+	if (sleep >= 100) {
+		// Falls asleep for 15 hours after the max time without sleeping.
+		// Sleep is still in debt, though, sleeping 15 hours after 48 won't recover you like sleeping normally.
+		// Also HP is affected.
+		clock.addHours(15);
+		sleep -= 10 * sleepPerHour;
+		hp -= 4;
+		depression += 10;
+		write(Text.FallExhausted);
+	}
 }
 
 // Start-up the game once everything's been defined.

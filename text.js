@@ -26,4 +26,5 @@ const Text = {
 	NoHelp: "There's no use, you feel that nobody can help you.",
 	TvSeries: "Time to watch some western crap!",
 	Forums: "Time to shitpost in a different medium, good old discussion boards.",
+	FallExhausted: "After staying way too much time awake, you pass out wherever you are, sleeping for fifteen hours straight."
 };
