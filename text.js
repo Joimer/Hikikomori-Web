@@ -20,5 +20,10 @@ const Text = {
 	NotTired: "You are not tired enough to sleep yet.",
 	Sleep: "You sleep soundly for eight hours.",
 	WakeUp: "You wake up, the existential dread switfly back in your mind.",
-	InformedPosts: "Who are you kidding? You don't know enough about anything to write an informed opinion."
+	InformedPosts: "Who are you kidding? You don't know enough about anything to write an informed opinion.",
+	DankMemes: "Born too late to explore the world, too early to explore the universe. Born just in time to explore dank memes.",
+	Creepypastas: "You read some old and stale creepypastas, but they still give you goosebumps.",
+	NoHelp: "There's no use, you feel that nobody can help you.",
+	TvSeries: "Time to watch some western crap!",
+	Forums: "Time to shitpost in a different medium, good old discussion boards.",
 };

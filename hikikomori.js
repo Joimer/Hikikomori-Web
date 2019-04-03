@@ -138,7 +138,7 @@ click('manga-library-use', () => {
 		}
 	}
 
-	addMinutes(t);
+	addMinutesAndSleep(t);
 	depression += manga.effects.depression;
 	shame += manga.effects.shame;
 	fear += manga.effects.fear;
@@ -179,7 +179,7 @@ click('anime-library-use', () => {
 		}
 	}
 
-	addMinutes(t);
+	addMinutesAndSleep(t);
 	depression += anime.effects.depression;
 	shame += anime.effects.shame;
 	fear += anime.effects.fear;
@@ -200,13 +200,12 @@ click('imageboard-toggle', () => {
 
 click('imageboard-shitpost', () => {
 	let shitpost = Shitposting[rand(0, Shitposting.length - 1)];
-	addMinutes(shitpost.duration);
+	addMinutesAndSleep(shitpost.duration);
 	write(Text.Shitposting);
 	write(Text[shitpost.id]);
 	depression += shitpost.effects.depression;
 	shame += shitpost.effects.shame;
 	fear += shitpost.effects.fear;
-
 	update();
 });
 
@@ -216,38 +215,57 @@ click('imageboard-informed', () => {
 });
 
 click('imageboard-memes', () => {
-	
+	write(Text.DankMemes);
+	depression -= 1;
 	update();
 });
 
 click('imageboard-creepy', () => {
-	
+	write(Text.Creepypastas);
+	depression -= 1;
+	fear += 2;
+	shame += 1;
 	update();
 });
 
 click('computer-vidya', () => {
-	
+	// TODO: Something like anime, manga, so on.
 	update();
 });
 
 click('computer-forums', () => {
-	
+	write(Text.Forums);
+	addMinutesAndSleep(120);
+	depression -= 1;
+	fear -= 1;
+	shame += 2;
 	update();
 });
 
 click('computer-tvs', () => {
-	
+	write(Text.TvSeries);
+	addMinutesAndSleep(65);
+	depression += 2;
+	fear -= 1;
+	shame -= 1;
 	update();
 });
 
 click('computer-get-help', () => {
-	
+	write(Text.NoHelp);
+	// TODO: Add rest.
 	update();
 });
 
-function addMinutes(m) {
+function addMinutesAndSleep(m) {
 	clock.addMinutes(m);
 	sleep += sleepPerHour / 60 * m;
+}
+
+// Check how many hours they've been awake.
+// If it's in the limit, they fall down asleep, with more negative consequences.
+function checkSleepyness() {
+
 }
 
 // Start-up the game once everything's been defined.
@@ -260,7 +278,8 @@ function addMinutes(m) {
 		dt += (Date.now() - lastUpdate) / 1000.0;
 		// Every second is a minute in-game.
 		if (dt >= 1.0) {
-			addMinutes(1);
+			addMinutesAndSleep(1);
+			checkSleepyness();
 			dt -= 1.0;
 			update();
 		}
