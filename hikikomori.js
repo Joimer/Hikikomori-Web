@@ -280,6 +280,33 @@ function checkSleepyness() {
 	}
 }
 
+// Add a counter for what was the last time that the player had water
+// Add a counter for both water bottles that refill when asleep and empty waters to pee
+// Add a counter for eating and a 20-24 hours cycle for excretion.
+
+function addBladderCount(m) {
+
+}
+
+function addIntestineCount(m) {
+
+}
+
+function checkBiologicalNeeds() {
+	checkSleepyness();
+	checkBladder();
+	checkIntestines();
+}
+
+// TODO: Subir barras de ir al baño, ciclo de 24 horas
+// Barra de hunger
+// Comida de tus padres a ciertas horas.
+// Si está fría bajas en salud. Si pasa mucho rato se pone mala y te entra diarrea.
+// Beber agua.
+// Botellas para mear.
+
+// Añadir eventos como ataque de ansiedad y día de depresión severa.
+
 // Start-up the game once everything's been defined.
 (() => {
 	// Load game state, if any, here.
@@ -291,7 +318,9 @@ function checkSleepyness() {
 		// Every second is a minute in-game.
 		if (dt >= 1.0) {
 			addMinutesAndSleep(1);
-			checkSleepyness();
+			addBladderCount(1);
+			addIntestineCount(1);
+			checkBiologicalNeeds();
 			dt -= 1.0;
 			update();
 		}

@@ -35,4 +35,13 @@ const Shitposting = [
 			fear: -2
 		}
 	},
+	{
+		id: "Mirate",
+		duration: 20,
+		effects: {
+			depression: 1,
+			shame: 1,
+			fear: -2
+		}
+	}
 ];

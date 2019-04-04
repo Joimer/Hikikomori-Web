@@ -26,5 +26,10 @@ const Text = {
 	NoHelp: "There's no use, you feel that nobody can help you.",
 	TvSeries: "Time to watch some western crap!",
 	Forums: "Time to shitpost in a different medium, good old discussion boards.",
-	FallExhausted: "After staying way too much time awake, you pass out wherever you are, sleeping for fifteen hours straight."
+	FallExhausted: "After staying way too much time awake, you pass out wherever you are, sleeping for fifteen hours straight.",
+	Mirate: "Take a look at: Samurai champloo, Cowboy beboo, Afro samurai, After that. Do not watch more anime. If you want. Look stuff of the 80s/90s. Movies. studio ghibli. "
+	+ "Anime nowadays is plagued by cliches and archetypal structures for a sick society that attempts to escape from their reality with wonderful parallel worlds. "
+	+ "thin heavy-eater stupid MC. Powerful emo friend. Woman with a child's face and giant breasts...very bad guy.with a face of a...bad guy that...does bad stuff...because he's bad. "
+	+ "Stupid corny love stories too close to pedophilia."
+	+ "Pass..."
 };
