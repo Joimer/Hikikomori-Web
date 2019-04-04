@@ -292,6 +292,14 @@ function addIntestineCount(m) {
 
 }
 
+function checkBladder() {
+
+}
+
+function checkIntestines() {
+
+}
+
 function checkBiologicalNeeds() {
 	checkSleepyness();
 	checkBladder();
@@ -314,16 +322,18 @@ function checkBiologicalNeeds() {
 	lastUpdate = Date.now();
 	update();
 	window.setInterval(() => {
-		dt += (Date.now() - lastUpdate) / 1000.0;
-		// Every second is a minute in-game.
-		if (dt >= 1.0) {
-			addMinutesAndSleep(1);
-			addBladderCount(1);
-			addIntestineCount(1);
-			checkBiologicalNeeds();
-			dt -= 1.0;
-			update();
+		if (!document.hidden) {
+			dt += (Date.now() - lastUpdate) / 1000.0;
+			// Every second is a minute in-game.
+			if (dt >= 1.0) {
+				addMinutesAndSleep(1);
+				addBladderCount(1);
+				addIntestineCount(1);
+				checkBiologicalNeeds();
+				dt -= 1.0;
+				update();
+			}
+			lastUpdate = Date.now();
 		}
-		lastUpdate = Date.now();
 	}, 1000 / 60);
 })();
