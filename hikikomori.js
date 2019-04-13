@@ -3,8 +3,11 @@
 // This isn't minified either because I don't think it's worth the effort in this specific case.
 
 // Game values.
+let gameActive = true;
 // Last time the game values were updated.
 let lastUpdate = 0;
+// Last time the player did an action.
+let lastAction = 0;
 // Delta time: time that passed between updates.
 let dt = 0.0;
 // In-game clock.
@@ -23,7 +26,6 @@ let sleep = sleepPerHour;
 let hunger = 0;
 let bladder = 10;
 let execrate = 10;
-let lastAction = 0;
 let mangaCooldown = 0;
 let reading = null;
 let watching = null;
@@ -70,16 +72,19 @@ function win() {
 
 // Click events that manage the gameplay
 click('knot-watch', () => {
+	lastAction = 0;
 	let msg = depression > 40 ? Text.KnotDepressionHigh : Text.KnotDepressionLow;
 	write(msg);
 });
 
 click('bed-watch', () => {
+	lastAction = 0;
 	write(Text.BedWatch);
 });
 
 // TODO: Add cooldown for sleeping twice in a row after an all nighter.
 click('bed-use', () => {
+	lastAction = 0;
 	if (sleep < 19) {
 		write(Text.NotTired);
 	} else {
@@ -95,19 +100,23 @@ click('bed-use', () => {
 });
 
 click('door', () => {
+	lastAction = 0;
 	write(Text.RoomLeaveScared);
 	// Todo win game
 });
 
 click('manga-library-watch', () => {
+	lastAction = 0;
 	write(Text.MangaLibraryWatch);
 });
 
 click('anime-library-watch', () => {
+	lastAction = 0;
 	write(Text.AnimeLibraryWatch);
 });
 
 click('manga-library-use', () => {
+	lastAction = 0;
 	let time = 0;
 	let t = 0;
 	let manga = {};
@@ -150,6 +159,7 @@ click('manga-library-use', () => {
 });
 
 click('anime-library-use', () => {
+	lastAction = 0;
 	let time = 0;
 	let t = 0;
 	let anime = {};
@@ -201,6 +211,7 @@ click('imageboard-toggle', () => {
 });
 
 click('imageboard-shitpost', () => {
+	lastAction = 0;
 	let shitpost = Shitposting[rand(0, Shitposting.length - 1)];
 	addMinutesAndSleep(shitpost.duration);
 	write(Text.Shitposting);
@@ -212,17 +223,20 @@ click('imageboard-shitpost', () => {
 });
 
 click('imageboard-informed', () => {
+	lastAction = 0;
 	write(Text.InformedPosts);
 	update();
 });
 
 click('imageboard-memes', () => {
+	lastAction = 0;
 	write(Text.DankMemes);
 	depression -= 1;
 	update();
 });
 
 click('imageboard-creepy', () => {
+	lastAction = 0;
 	write(Text.Creepypastas);
 	depression -= 1;
 	fear += 2;
@@ -232,10 +246,12 @@ click('imageboard-creepy', () => {
 
 click('computer-vidya', () => {
 	// TODO: Something like anime, manga, so on.
+	lastAction = 0;
 	update();
 });
 
 click('computer-forums', () => {
+	lastAction = 0;
 	write(Text.Forums);
 	addMinutesAndSleep(120);
 	depression -= 1;
@@ -245,6 +261,7 @@ click('computer-forums', () => {
 });
 
 click('computer-tvs', () => {
+	lastAction = 0;
 	write(Text.TvSeries);
 	addMinutesAndSleep(65);
 	depression += 2;
@@ -254,6 +271,7 @@ click('computer-tvs', () => {
 });
 
 click('computer-get-help', () => {
+	lastAction = 0;
 	write(Text.NoHelp);
 	// TODO: Add rest.
 	update();
@@ -306,14 +324,64 @@ function checkBiologicalNeeds() {
 	checkIntestines();
 }
 
+
+function checkIdle() {
+	if (lastAction >= 5.0) {
+		lastAction = 0;
+		write(Text.Idle);
+	}
+}
+
 // TODO: Subir barras de ir al baño, ciclo de 24 horas
 // Barra de hunger
 // Comida de tus padres a ciertas horas.
 // Si está fría bajas en salud. Si pasa mucho rato se pone mala y te entra diarrea.
 // Beber agua.
 // Botellas para mear.
-
 // Añadir eventos como ataque de ansiedad y día de depresión severa.
+
+// Set up control of page activation and deactivation so the game only runs when the window is active.
+(() => {
+	let hidden = "hidden";
+
+	function onChange(e) {
+		const v = "visible";
+		const h = "hidden";
+        let evtMap = {
+          focus:v, focusin:v, pageshow:v, blur:h, focusout:h, pagehide:h
+        };
+
+		e = e || window.event;
+		if (e.type in evtMap) {
+			document.body.className = evtMap[e.type];
+		} else {
+			document.body.className = this[hidden] ? "hidden" : "visible";
+		}
+		console.info(document.body.className);
+	}
+
+	// Standards:
+	if (hidden in document) {
+		document.addEventListener("visibilitychange", onChange);
+	} else if ((hidden = "mozHidden") in document) {
+		document.addEventListener("mozvisibilitychange", onChange);
+	} else if ((hidden = "webkitHidden") in document) {
+		document.addEventListener("webkitvisibilitychange", onChange);
+	} else if ((hidden = "msHidden") in document) {
+		document.addEventListener("msvisibilitychange", onChange);
+	// IE 9 and lower (though why should I)
+	} else if ("onfocusin" in document) {
+		document.onfocusin = document.onfocusout = onChange;
+	// All others:
+	} else {
+		window.onpageshow = window.onpagehide = window.onfocus = window.onblur = onChange;
+	}
+
+	// Set the initial state (but only if browser supports the Page Visibility API)
+	if (document[hidden] !== undefined) {
+		onChange({type: document[hidden] ? "blur" : "focus"});
+	}
+})();
 
 // Start-up the game once everything's been defined.
 (() => {
@@ -322,8 +390,10 @@ function checkBiologicalNeeds() {
 	lastUpdate = Date.now();
 	update();
 	window.setInterval(() => {
-		if (!document.hidden) {
-			dt += (Date.now() - lastUpdate) / 1000.0;
+		if (gameActive && !document.hidden && !document.body.hidden) {
+			let theDt = (Date.now() - lastUpdate) / 1000.0;
+			dt += theDt;
+			lastAction += theDt;
 			// Every second is a minute in-game.
 			if (dt >= 1.0) {
 				addMinutesAndSleep(1);
@@ -333,6 +403,7 @@ function checkBiologicalNeeds() {
 				dt -= 1.0;
 				update();
 			}
+			checkIdle();
 			lastUpdate = Date.now();
 		}
 	}, 1000 / 60);

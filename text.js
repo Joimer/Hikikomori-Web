@@ -31,5 +31,6 @@ const Text = {
 	+ "Anime nowadays is plagued by cliches and archetypal structures for a sick society that attempts to escape from their reality with wonderful parallel worlds. "
 	+ "thin heavy-eater stupid MC. Powerful emo friend. Woman with a child's face and giant breasts...very bad guy.with a face of a...bad guy that...does bad stuff...because he's bad. "
 	+ "Stupid corny love stories too close to pedophilia."
-	+ "Pass..."
+	+ "Pass...",
+	Idle: "You shitpost in Discord with your internet friends. Oh, how much you actually hate them."
 };
