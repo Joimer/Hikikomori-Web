@@ -6,6 +6,7 @@ const Text = {
 	KnotDepressionLow: "Not today, old friend. Not today.",
 	BedWatch: "Your trusty bed. Paid by your parents, used by you.",
 	RoomLeaveScared: "You're too scared to leave your room.",
+	NoNeedBathroom: "You don't need to go to the bathroom.",
 	MangaLibraryWatch: "Aaaah, your manga library, one of the few things you are proud of. "
 		+ "Paid by the few wages you got that short time you were brave enough to face the world by yourself.",
 	AnimeLibraryWatch: "Plenty of BDs and even some older DVDs. "

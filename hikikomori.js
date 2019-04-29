@@ -96,6 +96,19 @@ click('bed-use', () => {
 		write(Text.Sleep);
 		update();
 		write(Text.WakeUp);
+		SleepingEvents();
+	}
+});
+
+click('bathroom', () => {
+	if (bladder < 50 && excretion < 50) {
+		write(Text.NoNeedBathroom);
+	} else {
+		lastAction = 0;
+		if (excretion > 49) {
+			excretion = clamp(excretion - 50, 0, 100);
+		}
+		//write(Text.BedWatch);
 	}
 });
 
@@ -295,7 +308,14 @@ function checkSleepyness() {
 		hp -= 4;
 		depression += 10;
 		write(Text.FallExhausted);
+		SleepingEvents();
 	}
+}
+
+function SleepingEvents() {
+	// Parents clean up the mess:
+	// Piss bottles are removed
+	// A bentou of food is put close to the door.
 }
 
 // Add a counter for what was the last time that the player had water
