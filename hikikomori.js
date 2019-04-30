@@ -4,20 +4,26 @@
 
 // Game values.
 let gameActive = true;
+
 // Last time the game values were updated.
 let lastUpdate = 0;
+
 // Last time the player did an action.
 let lastAction = 0;
-// Delta time: time that passed between updates.
+
+// Delta time, the time that passed between updates.
 let dt = 0.0;
+
 // In-game clock.
 let clock = new Clock();
+
 // Player values.
 let hp = 100;
 let depression = 70;
 let fear = 70;
 let shame = 60;
 let sleepDebt = 0;
+
 // Number of hours the hikikomori can stand up without sleeping.
 // As long as health permits it.
 const maxWake = 72;
@@ -96,6 +102,7 @@ click('bed-use', () => {
 		write(Text.Sleep);
 		update();
 		write(Text.WakeUp);
+		// Random cannot move all day event here
 		SleepingEvents();
 	}
 });
@@ -308,34 +315,31 @@ function checkSleepyness() {
 		hp -= 4;
 		depression += 10;
 		write(Text.FallExhausted);
-		SleepingEvents();
 	}
-}
-
-function SleepingEvents() {
-	// Parents clean up the mess:
-	// Piss bottles are removed
-	// A bentou of food is put close to the door.
 }
 
 // Add a counter for what was the last time that the player had water
 // Add a counter for both water bottles that refill when asleep and empty waters to pee
 // Add a counter for eating and a 20-24 hours cycle for excretion.
 
+// Adds m minutes to bladder count since the last time a liquid was taken.
+// 2 hours from drinking to micturion.
 function addBladderCount(m) {
 
 }
 
+// Adds m minutes to intestine count since the last time solid food was taken.
+// 12 hours from ingestion to excretion.
 function addIntestineCount(m) {
-
+	
 }
 
 function checkBladder() {
-
+	
 }
 
 function checkIntestines() {
-
+	
 }
 
 function checkBiologicalNeeds() {
@@ -350,6 +354,8 @@ function checkIdle() {
 		lastAction = 0;
 		write(Text.Idle);
 	}
+
+	// Random anxiety attacks here
 }
 
 // TODO: Subir barras de ir al baño, ciclo de 24 horas
@@ -377,7 +383,6 @@ function checkIdle() {
 		} else {
 			document.body.className = this[hidden] ? "hidden" : "visible";
 		}
-		console.info(document.body.className);
 	}
 
 	// Standards:
