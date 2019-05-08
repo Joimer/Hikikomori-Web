@@ -34,3 +34,7 @@ function show(id) {
 function round(n, dec) {
 	return +n.toFixed(2);
 }
+
+function disable(id) {
+	$(id).disabled = "disabled";
+}

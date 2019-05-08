@@ -59,7 +59,14 @@ function updateClock() {
 }
 
 function gameover() {
-	//todo
+	write(Text.GameOver);
+	gameActive = false;
+	disableAll();
+}
+
+// TODO: Put all the buttons, move to the bottom for readibility.
+function disableAll() {
+	disable('knot-watch');
 }
 
 function win() {
@@ -108,6 +115,7 @@ click('bathroom', () => {
 		if (excretion > 49) {
 			excretion = clamp(excretion - 50, 0, 100);
 		}
+		
 		//write(Text.BedWatch);
 	}
 });
@@ -377,7 +385,6 @@ function checkIdle() {
 		} else {
 			document.body.className = this[hidden] ? "hidden" : "visible";
 		}
-		console.info(document.body.className);
 	}
 
 	// Standards:
