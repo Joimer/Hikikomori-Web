@@ -38,3 +38,7 @@ function round(n, dec) {
 function disable(id) {
 	$(id).disabled = "disabled";
 }
+
+function printf(text, replace, time) {
+	return text.replace("%s", replace).replace('%t', time);
+}

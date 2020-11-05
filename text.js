@@ -34,5 +34,14 @@ const Text = {
 	+ "thin heavy-eater stupid MC. Powerful emo friend. Woman with a child's face and giant breasts...very bad guy.with a face of a...bad guy that...does bad stuff...because he's bad. "
 	+ "Stupid corny love stories too close to pedophilia."
 	+ "Pass...",
-	Idle: "You shitpost in Discord with your internet friends. Oh, how much you actually hate them."
+	Idle: [
+		"You shitpost in Discord with your internet friends. Oh, how much you actually hate them.",
+		"Why do you live, you ponder.",
+		"Is there any meaning to life?"
+	],
+	HaveToPee: "You should go to the toilet.",
+	HaveToCrap: "You definitely should go to the toilet.",
+	PeedYourself: "You peed yourself.",
+	CrappedYourself: "You crapped yourself.",
+	BathroomUsed: "Feeling better!"
 };

@@ -23,6 +23,7 @@ let depression = 70;
 let fear = 70;
 let shame = 60;
 let sleepDebt = 0;
+let liquidInBody = 2000;
 
 // Number of hours the hikikomori can stand up without sleeping.
 // As long as health permits it.
@@ -37,14 +38,29 @@ let reading = null;
 let watching = null;
 let animeCooldown = 0;
 let watchingAnime = null;
+let lastFood = 0;
+let lastDrink = 0;
 
 const MANGA_MOST = 240;
 const ANIME_MOST = 300;
 
 // we update method pattern boys
+// Pretty ugly actually but hey
 function update() {
 	updateStats();
 	updateClock();
+}
+
+function hpDown(hpDown) {
+	hp -= hpDown;
+	if (hp < 1) {
+		hp = 0;
+		gameover();
+	}
+}
+
+function randomText(textList) {
+	return textList[rand(0, textList.length - 1)];
 }
 
 function updateStats() {
@@ -54,8 +70,8 @@ function updateStats() {
 	set('shame-marker', shame);
 	set('sleep-marker', round(sleep, 2));
 	set('hunger-marker', hunger);
-	set('bladder-marker', bladder);
-	set('execration-marker', execrate);
+	set('bladder-marker', round(bladder, 2));
+	set('execration-marker', round(execrate, 2));
 }
 
 function updateClock() {
@@ -70,9 +86,24 @@ function gameover() {
 	disableAll();
 }
 
-// TODO: Put all the buttons, move to the bottom for readibility.
 function disableAll() {
 	disable('knot-watch');
+	disable('bed-watch');
+	disable('bed-use');
+	disable('manga-library-watch');
+	disable('manga-library-use');
+	disable('anime-library-watch');
+	disable('anime-library-use');
+	disable('imageboard-shitpost');
+	disable('imageboard-informed');
+	disable('imageboard-memes');
+	disable('imageboard-creepy');
+	disable('computer-vidya');
+	disable('computer-forums');
+	disable('computer-tvs');
+	disable('computer-get-help');
+	disable('bathroom');
+	disable('door');
 }
 
 function win() {
@@ -80,23 +111,27 @@ function win() {
 		write(Text.WinCheat);
 		return;
 	}
+	gameActive = false;
 	//todo
 }
 
 // Click events that manage the gameplay
 click('knot-watch', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	let msg = depression > 40 ? Text.KnotDepressionHigh : Text.KnotDepressionLow;
 	write(msg);
 });
 
 click('bed-watch', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.BedWatch);
 });
 
 // TODO: Add cooldown for sleeping twice in a row after an all nighter.
 click('bed-use', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	if (sleep < 19) {
 		write(Text.NotTired);
@@ -110,40 +145,47 @@ click('bed-use', () => {
 		update();
 		write(Text.WakeUp);
 		// Random cannot move all day event here
-		SleepingEvents();
+		sleepingEvents();
 	}
 });
 
 click('bathroom', () => {
-	if (bladder < 50 && excretion < 50) {
+	if (!gameActive) return;
+	if (bladder < 30 && execrate < 30) {
 		write(Text.NoNeedBathroom);
 	} else {
 		lastAction = 0;
-		if (excretion > 49) {
-			excretion = clamp(excretion - 50, 0, 100);
+		if (execrate > 49) {
+			execrate = clamp(execrate - 80, 0, 100);
 		}
-		
-		//write(Text.BedWatch);
+		if (bladder > 30) {
+			bladder = clamp(bladder - 90, 0, 100);
+		}
+		write(Text.BathroomUsed);
 	}
 });
 
 click('door', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.RoomLeaveScared);
 	// Todo win game
 });
 
 click('manga-library-watch', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.MangaLibraryWatch);
 });
 
 click('anime-library-watch', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.AnimeLibraryWatch);
 });
 
 click('manga-library-use', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	let time = 0;
 	let t = 0;
@@ -177,7 +219,7 @@ click('manga-library-use', () => {
 		}
 	}
 
-	addMinutesAndSleep(t);
+	advanceBodyClock(t);
 	depression += manga.effects.depression;
 	shame += manga.effects.shame;
 	fear += manga.effects.fear;
@@ -187,6 +229,7 @@ click('manga-library-use', () => {
 });
 
 click('anime-library-use', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	let time = 0;
 	let t = 0;
@@ -205,7 +248,7 @@ click('anime-library-use', () => {
 		time = 20 * anime.episodes;
 		let timeWatched = watching.times * ANIME_MOST;
 		let left = time - timeWatched;
-		// Minimum of 2 minutes to finish the last pages.
+		// Minimum of 2 minutes to finish the last episode.
 		if (left < 2) {
 			left = 2;
 		}
@@ -219,11 +262,11 @@ click('anime-library-use', () => {
 		}
 	}
 
-	addMinutesAndSleep(t);
+	advanceBodyClock(t);
 	depression += anime.effects.depression;
 	shame += anime.effects.shame;
 	fear += anime.effects.fear;
-	write(Text.WatchAnime.replace('%s', anime.title).replace('%t', t));
+	write(printf(Text.WatchAnime, anime.title, t));
 
 	update();
 });
@@ -239,9 +282,10 @@ click('imageboard-toggle', () => {
 });
 
 click('imageboard-shitpost', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	let shitpost = Shitposting[rand(0, Shitposting.length - 1)];
-	addMinutesAndSleep(shitpost.duration);
+	advanceBodyClock(shitpost.duration);
 	write(Text.Shitposting);
 	write(Text[shitpost.id]);
 	depression += shitpost.effects.depression;
@@ -251,12 +295,14 @@ click('imageboard-shitpost', () => {
 });
 
 click('imageboard-informed', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.InformedPosts);
 	update();
 });
 
 click('imageboard-memes', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.DankMemes);
 	depression -= 1;
@@ -264,6 +310,7 @@ click('imageboard-memes', () => {
 });
 
 click('imageboard-creepy', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.Creepypastas);
 	depression -= 1;
@@ -273,15 +320,17 @@ click('imageboard-creepy', () => {
 });
 
 click('computer-vidya', () => {
+	if (!gameActive) return;
 	// TODO: Something like anime, manga, so on.
 	lastAction = 0;
 	update();
 });
 
 click('computer-forums', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.Forums);
-	addMinutesAndSleep(120);
+	advanceBodyClock(120);
 	depression -= 1;
 	fear -= 1;
 	shame += 2;
@@ -289,9 +338,10 @@ click('computer-forums', () => {
 });
 
 click('computer-tvs', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.TvSeries);
-	addMinutesAndSleep(65);
+	advanceBodyClock(65);
 	depression += 2;
 	fear -= 1;
 	shame -= 1;
@@ -299,6 +349,7 @@ click('computer-tvs', () => {
 });
 
 click('computer-get-help', () => {
+	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.NoHelp);
 	// TODO: Add rest.
@@ -306,9 +357,17 @@ click('computer-get-help', () => {
 });
 
 // TODO: Check clock I think the hour addition is not working properly.
+// Advances the clock and the need for sleeping.
 function addMinutesAndSleep(m) {
 	clock.addMinutes(m);
 	sleep += sleepPerHour / 60 * m;
+}
+
+// Advance the clock for all bodily functions
+function advanceBodyClock(m) {
+	addMinutesAndSleep(m);
+	addBladderCount(m);
+	addIntestineCount(m);
 }
 
 // Check how many hours they've been awake.
@@ -320,7 +379,7 @@ function checkSleepyness() {
 		// Also HP is affected.
 		clock.addHours(15);
 		sleep -= 10 * sleepPerHour;
-		hp -= 4;
+		hpDown(4);
 		depression += 10;
 		write(Text.FallExhausted);
 	}
@@ -331,23 +390,57 @@ function checkSleepyness() {
 // Add a counter for eating and a 20-24 hours cycle for excretion.
 
 // Adds m minutes to bladder count since the last time a liquid was taken.
-// 2 hours from drinking to micturion.
+// 3.7 hours from drinking to micturion (222 minutes to lose all drank liquids)
+// Average miction per day is about 7 times.
 function addBladderCount(m) {
-
+	bladder += m * 100 / 222;
 }
 
 // Adds m minutes to intestine count since the last time solid food was taken.
 // 12 hours from ingestion to excretion.
+// Average of 1 per day, 1440 minutes since eating to 100%.
 function addIntestineCount(m) {
-	
+	execrate += m * 100 / 1440;
 }
 
 function checkBladder() {
+	// Pee can be strongly held.
+	if (bladder > 100) {
+		if (bladder > 150) {
+			pissYourself();
+		} else {
+			hp -= 1;
+			write(Text.HaveToPee);
+		}
+	}
 	
+	if (bladder > 74) {
+		if (rand(1,4) === 1) write(Text.HaveToPee);
+	}
+}
+
+function pissYourself() {
+	const remove = Math.min(100, bladder);
+	bladder -= remove;
+	write(Text.PeedYourself);
+	hpDown(10);
 }
 
 function checkIntestines() {
-	
+	if (execrate > 99) {
+		selfExecrate();
+		return;
+	}
+	if (execrate > 74) {
+		if (rand(1,3) === 1) write(Text.HaveToCrap);
+	}
+}
+
+function selfExecrate() {
+	const remove = Math.min(100, execrate);
+	execrate -= remove;
+	write(Text.CrappedYourself);
+	hpDown(20);
 }
 
 function checkBiologicalNeeds() {
@@ -356,14 +449,17 @@ function checkBiologicalNeeds() {
 	checkIntestines();
 }
 
-
 function checkIdle() {
-	if (lastAction >= 5.0) {
+	if (lastAction >= 30.0) {
 		lastAction = 0;
-		write(Text.Idle);
+		write(randomText(Text.Idle));
 	}
 
 	// Random anxiety attacks here
+}
+
+function sleepingEvents() {
+
 }
 
 // TODO: Subir barras de ir al baño, ciclo de 24 horas
@@ -379,6 +475,7 @@ function checkIdle() {
 	let hidden = "hidden";
 
 	function onChange(e) {
+		
 		const v = "visible";
 		const h = "hidden";
         let evtMap = {
@@ -419,25 +516,29 @@ function checkIdle() {
 // Start-up the game once everything's been defined.
 (() => {
 	// Load game state, if any, here.
+	// TODO: Game saving
 	write(Text.Welcome);
 	lastUpdate = Date.now();
+	lastFood = Date.now() - 2 * 60 * 100;
 	update();
-	window.setInterval(() => {
+
+	// Game loop.
+	function gameloop() {
 		if (gameActive && !document.hidden && !document.body.hidden) {
 			let theDt = (Date.now() - lastUpdate) / 1000.0;
 			dt += theDt;
 			lastAction += theDt;
 			// Every second is a minute in-game.
 			if (dt >= 1.0) {
-				addMinutesAndSleep(1);
-				addBladderCount(1);
-				addIntestineCount(1);
+				advanceBodyClock(1);
 				checkBiologicalNeeds();
 				dt -= 1.0;
 				update();
 			}
 			checkIdle();
-			lastUpdate = Date.now();
 		}
-	}, 1000 / 60);
+		lastUpdate = Date.now();
+		requestAnimationFrame(gameloop);
+	}
+	requestAnimationFrame(gameloop);
 })();
