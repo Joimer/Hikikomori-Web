@@ -190,6 +190,10 @@ click('manga-library-use', () => {
 	let time = 0;
 	let t = 0;
 	let manga = {};
+	if (reading !== null && rand(1,10) === 6) {
+		write(printf(Text.DroppedManga, reading.title, t));
+		reading = null;
+	}
 	if (reading === null) {
 		let r = rand(0, Manga.length - 1);
 		manga = Manga[r];
@@ -234,6 +238,11 @@ click('anime-library-use', () => {
 	let time = 0;
 	let t = 0;
 	let anime = {};
+	// Chance to drop what you are doing
+	if (watching !== null && rand(1,10) === 6) {
+		write(printf(Text.DroppedAnime, watching.title, t));
+		watching = null;
+	}
 	if (watching === null) {
 		let r = rand(0, Anime.length - 1);
 		anime = Anime[r];
@@ -270,8 +279,6 @@ click('anime-library-use', () => {
 
 	update();
 });
-
-// TODO: Drop anime and manga.
 
 click('imageboard-toggle', () => {
 	if ($('imageboard-options').style.display === 'none') {

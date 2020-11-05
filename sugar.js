@@ -32,7 +32,7 @@ function show(id) {
 }
 
 function round(n, dec) {
-	return +n.toFixed(2);
+	return +n.toFixed(dec);
 }
 
 function disable(id) {

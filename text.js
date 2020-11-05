@@ -43,5 +43,7 @@ const Text = {
 	HaveToCrap: "You definitely should go to the toilet.",
 	PeedYourself: "You peed yourself.",
 	CrappedYourself: "You crapped yourself.",
-	BathroomUsed: "Feeling better!"
+	BathroomUsed: "Feeling better!",
+	DroppedAnime: "",
+	DroppedAnime: "",
 };
