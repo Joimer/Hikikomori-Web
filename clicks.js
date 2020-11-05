@@ -50,9 +50,12 @@ click('bathroom', () => {
 
 click('door', () => {
 	if (!gameActive) return;
-	lastAction = 0;
+    lastAction = 0;
+    if (depression === 0 && fear < 20 && shame < 20 && hp > 33) {
+        win();
+        return;
+    }
 	write(Text.RoomLeaveScared);
-	// Todo win game
 });
 
 click('manga-library-watch', () => {

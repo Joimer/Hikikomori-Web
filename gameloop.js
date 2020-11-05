@@ -16,7 +16,6 @@
 			// Every second is a minute in-game.
 			if (dt >= 1.0) {
 				advanceBodyClock(1);
-				checkBiologicalNeeds();
 				dt -= 1.0;
 				update();
 			}

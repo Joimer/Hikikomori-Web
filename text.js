@@ -1,6 +1,7 @@
 const Text = {
 	GameOver: "In the end, you could never leave your room. Now you shall rest here forever.",
 	Dead: "You are dead.",
+	Win: "You are out. But not sneakily, not for a brief moment. You can now truly live.",
 	Day: 'Day',
 	Welcome: "You're trapped in your room. It's not that you can't get out, you simply won't.",
 	WinCheat: "If you're gonna cheat, at least make the effort of editting the game values... Or this function!",

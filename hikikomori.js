@@ -50,6 +50,7 @@ const ANIME_MOST = 300;
 // we update method pattern boys
 // Pretty ugly actually but hey
 function update() {
+	checkBiologicalNeeds();
 	updateStats();
 	updateClock();
 }
@@ -116,7 +117,7 @@ function win() {
 		return;
 	}
 	gameActive = false;
-	//todo
+	write(Text.Win);
 }
 
 // TODO: Check clock I think the hour addition is not working properly.
