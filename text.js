@@ -1,5 +1,6 @@
 const Text = {
 	GameOver: "In the end, you could never leave your room. Now you shall rest here forever.",
+	Dead: "You are dead.",
 	Day: 'Day',
 	Welcome: "You're trapped in your room. It's not that you can't get out, you simply won't.",
 	WinCheat: "If you're gonna cheat, at least make the effort of editting the game values... Or this function!",
@@ -44,6 +45,6 @@ const Text = {
 	PeedYourself: "You peed yourself.",
 	CrappedYourself: "You crapped yourself.",
 	BathroomUsed: "Feeling better!",
-	DroppedAnime: "",
-	DroppedAnime: "",
+	DroppedAnime: "You dropped %s. Not feeling like watching it anymore.",
+	DroppedManga: "You dropped %s. Not feeling like reading it anymore.",
 };
