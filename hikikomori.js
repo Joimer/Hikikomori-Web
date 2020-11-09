@@ -43,6 +43,8 @@ let animeCooldown = 0;
 let watchingAnime = null;
 let lastFood = 0;
 let lastDrink = 0;
+let bottles = 2;
+let fullBottles = 0;
 
 const MANGA_MOST = 240;
 const ANIME_MOST = 300;
@@ -155,7 +157,9 @@ function checkSleepyness() {
 
 // Adds m minutes to bladder count since the last time a liquid was taken.
 function addBladderCount(m) {
-	bladder += m * 100 / MICTURION_WAIT;
+	if (liquidInBody > 0) {
+		bladder += m * 100 / MICTURION_WAIT;
+	}
 }
 
 // Adds m minutes to intestine count since the last time solid food was taken.
@@ -180,10 +184,14 @@ function checkBladder() {
 }
 
 function pissYourself() {
-	const remove = Math.min(100, bladder);
-	bladder -= remove;
+	miction(Math.min(100, bladder));
 	write(Text.PeedYourself);
 	hpDown(10);
+}
+
+function miction(amount) {
+	bladder = clamp(bladder - amount, 0, 100);
+	liquidInBody -= amount * 20
 }
 
 function checkIntestines() {

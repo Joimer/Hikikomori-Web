@@ -42,7 +42,7 @@ click('bathroom', () => {
 			execrate = clamp(execrate - 80, 0, 100);
 		}
 		if (bladder > 30) {
-			bladder = clamp(bladder - 90, 0, 100);
+			miction(90);
 		}
 		write(Text.BathroomUsed);
 	}
