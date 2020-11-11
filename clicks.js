@@ -2,8 +2,13 @@
 click('knot-watch', () => {
 	if (!gameActive) return;
 	lastAction = 0;
-	let msg = depression > 40 ? Text.KnotDepressionHigh : Text.KnotDepressionLow;
-	write(msg);
+	if (depression >= 100) {
+		write(Text.KnotDead);
+		gameover();
+	} else {
+		let msg = depression > 40 ? Text.KnotDepressionHigh : Text.KnotDepressionLow;
+		write(msg);
+	}
 });
 
 click('bed-watch', () => {
