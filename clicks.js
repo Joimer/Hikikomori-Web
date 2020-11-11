@@ -248,3 +248,11 @@ click('computer-get-help', () => {
 	// TODO: Add rest.
 	update();
 });
+
+click('drink-water', () => {
+	if (!gameActive) return;
+	drink();
+	if (fullBottles <= 0) {
+		disable('drink-water');
+	}
+});

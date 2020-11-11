@@ -44,8 +44,11 @@ const Text = {
 	HaveToPee: "You should go to the toilet.",
 	HaveToCrap: "You definitely should go to the toilet.",
 	PeedYourself: "You peed yourself.",
+	PeedBottle: "You peed in one of your trusty bottles, expecting your parents to get you more.",
 	CrappedYourself: "You crapped yourself.",
 	BathroomUsed: "Feeling better!",
 	DroppedAnime: "You dropped %s. Not feeling like watching it anymore.",
 	DroppedManga: "You dropped %s. Not feeling like reading it anymore.",
+	Drank: "You drank some water. Refreshing!",
+	NoDrinkBottles: "You have nothing to drink.",
 };

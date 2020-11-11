@@ -44,7 +44,7 @@ let watchingAnime = null;
 let lastFood = 0;
 let lastDrink = 0;
 let bottles = 2;
-let fullBottles = 0;
+let fullBottles = 1;
 
 const MANGA_MOST = 240;
 const ANIME_MOST = 300;
@@ -185,13 +185,18 @@ function checkBladder() {
 
 function pissYourself() {
 	miction(Math.min(100, bladder));
-	write(Text.PeedYourself);
-	hpDown(10);
+	if (bottles <= 0) {
+		write(Text.PeedYourself);
+		hpDown(10);
+	} else {
+		write(Text.PeedBottle);
+		bottles--;
+	}
 }
 
 function miction(amount) {
 	bladder = clamp(bladder - amount, 0, 100);
-	liquidInBody -= amount * 20
+	liquidInBody = clamp(liquidInBody - amount * 20, 0, 2000);
 }
 
 function checkIntestines() {
@@ -224,6 +229,18 @@ function checkIdle() {
 	}
 
 	// Random anxiety attacks here
+}
+
+function drink() {
+	if (fullBottles > 0) {
+		hp = clamp(hp + 5, 0, 100);
+		fullBottles--;
+		liquidInBody += 200;
+		bladder += 10;
+		write(Text.Drank);
+	} else {
+		write(Text.NoDrinkBottles);
+	}
 }
 
 function sleepingEvents() {

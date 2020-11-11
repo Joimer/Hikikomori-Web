@@ -39,6 +39,10 @@ function disable(id) {
 	$(id).disabled = "disabled";
 }
 
+function enable(id) {
+	$(id).disabled = "";
+}
+
 function printf(text, replace, time) {
 	return text.replace("%s", replace).replace('%t', time);
 }
