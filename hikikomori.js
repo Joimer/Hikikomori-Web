@@ -256,6 +256,12 @@ function sleepingEvents() {
 	}
 
 	// Random chance of nightmare with fear.
+	if (rand(1, 100) < Math.floor(fear / 4)) {
+		hpDown(10);
+		depression += 5;
+		fear += 5;
+		write(Text.Nightmare);
+	}
 }
 
 // TODO:
