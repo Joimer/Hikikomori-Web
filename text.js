@@ -51,4 +51,5 @@ const Text = {
 	DroppedManga: "You dropped %s. Not feeling like reading it anymore.",
 	Drank: "You drank some water. Refreshing!",
 	NoDrinkBottles: "You have nothing to drink.",
+	Parents: "Your parents left food and water in your door.",
 };

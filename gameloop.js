@@ -16,6 +16,7 @@
 			// Every second is a minute in-game.
 			if (dt >= 1.0) {
 				advanceBodyClock(1);
+				timeSinceParents += dt;
 				dt -= 1.0;
 				update();
 			}

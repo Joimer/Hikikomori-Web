@@ -45,6 +45,8 @@ let lastFood = 0;
 let lastDrink = 0;
 let bottles = 2;
 let fullBottles = 1;
+let foodStuff = 2;
+let timeSinceParents = 0;
 
 const MANGA_MOST = 240;
 const ANIME_MOST = 300;
@@ -235,6 +237,7 @@ function drink() {
 	if (fullBottles > 0) {
 		hp = clamp(hp + 5, 0, 100);
 		fullBottles--;
+		bottles++;
 		liquidInBody += 200;
 		bladder += 10;
 		write(Text.Drank);
@@ -244,13 +247,18 @@ function drink() {
 }
 
 function sleepingEvents() {
+	// Add water and food from parents
+	if (Date.now() - timeSinceParents > 1200) {
+		fullBottles += 2;
+		foodStuff += 2;
+		timeSinceParents = 0;
+		write(Text.Parents);
+	}
 
+	// Random chance of nightmare with fear.
 }
 
 // TODO:
 // Barra de hunger
-// Comida de tus padres a ciertas horas.
-// Si está fría bajas en salud. Si pasa mucho rato se pone mala y te entra diarrea.
-// Beber agua.
-// Botellas para mear.
+// Si la comida está fría bajas en salud. Si pasa mucho rato se pone mala y te entra diarrea.
 // Añadir eventos como ataque de ansiedad y día de depresión severa.
