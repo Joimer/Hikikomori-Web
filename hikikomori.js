@@ -57,6 +57,9 @@ function update() {
 	checkBiologicalNeeds();
 	updateStats();
 	updateClock();
+	cssClass('depression-wrap', '');
+	cssClass('fear-wrap', '');
+	cssClass('shame-wrap', '');
 }
 
 function modifyHp(hpChange) {
@@ -84,6 +87,12 @@ function modifyDepression(change) {
 		modifyFear(5);
 		modifyShame(5);
 	}
+	if (change > 0) {
+		cssClass('depression-wrap', 'red');
+	}
+	if (change < 0) {
+		cssClass('depression-wrap', 'green');
+	}
 }
 
 function modifyFear(change) {
@@ -100,6 +109,12 @@ function modifyFear(change) {
 		modifyDepression(5);
 		modifyShame(5);
 	}
+	if (change > 0) {
+		cssClass('fear-wrap', 'red');
+	}
+	if (change < 0) {
+		cssClass('fear-wrap', 'green');
+	}
 }
 
 function modifyShame(change) {
@@ -115,6 +130,12 @@ function modifyShame(change) {
 		modifyHp(1);
 		modifyFear(5);
 		modifyDepression(5);
+	}
+	if (change > 0) {
+		cssClass('shame-wrap', 'red');
+	}
+	if (change < 0) {
+		cssClass('shame-wrap', 'green');
 	}
 }
 
@@ -189,7 +210,7 @@ function advanceBodyClock(m) {
 	addIntestineCount(m);
 }
 
-function sleep() {
+function doSleep() {
 	const sleepHours = 8 + Math.floor(depression / 5);
 	modifyShame(-(sleepHours - 8));
 	sleep = clamp(sleep - sleepPerHour * sleepHours, 0, 100);

@@ -24,7 +24,7 @@ click('bed-use', () => {
 	if (sleep < 19) {
 		write(Text.NotTired);
 	} else {
-		sleep();
+		doSleep();
 	}
 });
 

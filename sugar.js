@@ -46,3 +46,7 @@ function enable(id) {
 function printf(text, replace, time) {
 	return text.replace("%s", replace).replace('%t', time);
 }
+
+function cssClass(id, cssclass) {
+	$(id).className = cssclass;
+}
