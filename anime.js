@@ -1,3 +1,17 @@
+const Genre = {
+	ADVENTURE: 1,
+	COMEDY: 1,
+	DRAMA: 1,
+	HORROR: 1,
+	MAHOUSHOUJO: 1,
+	MECHA: 1,
+	MUSIC: 1,
+	PSYCHOLOGICAL: 1,
+	ROMANCE: 1,
+	SHOUNENSHIT: 1,
+	SOL: 1
+};
+
 const Anime = [
 	{
 		title: "Snake Ball",
@@ -6,7 +20,8 @@ const Anime = [
 			depression: -1,
 			shame: -1,
 			fear: -1
-		}
+		},
+		genres: [Genre.SHOUNENSHIT, Genre.COMEDY]
 	},
 	{
 		title: "Tanma 1/4",
@@ -15,7 +30,8 @@ const Anime = [
 			depression: -1,
 			shame: -1,
 			fear: -1
-		}
+		},
+		genres: [Genre.SHOUNENSHIT, Genre.ROMANCE]
 	},
 	{
 		title: "Old Genesis Adamgelion",
@@ -24,7 +40,8 @@ const Anime = [
 			depression: 2,
 			shame: -2,
 			fear: 0
-		}
+		},
+		genres: [Genre.PSYCHOLOGICAL, Genre.MECHA, Genre.DRAMA]
 	},
 	{
 		title: "The End of Adamgelion",
@@ -34,7 +51,8 @@ const Anime = [
 			depression: 1,
 			shame: -1,
 			fear: 0
-		}
+		},
+		genres: [Genre.PSYCHOLOGICAL, Genre.MECHA, Genre.DRAMA]
 	},
 	{
 		title: "Kourogi no Naku Koro ni",
@@ -43,7 +61,8 @@ const Anime = [
 			depression: 2,
 			shame: -3,
 			fear: 1
-		}
+		},
+		genres: [Genre.PSYCHOLOGICAL, Genre.HORROR]
 	},
 	{
 		title: "Kourogi no Naku Koro ni Kai",
@@ -52,7 +71,8 @@ const Anime = [
 			depression: 2,
 			shame: -3,
 			fear: 1
-		}
+		},
+		genres: [Genre.PSYCHOLOGICAL, Genre.HORROR]
 	},
 	{
 		title: "Kourogi no Naku Koro ni Higu",
@@ -61,7 +81,8 @@ const Anime = [
 			depression: 2,
 			shame: -3,
 			fear: 1
-		}
+		},
+		genres: [Genre.PSYCHOLOGICAL, Genre.HORROR]
 	},
 	{
 		title: "Mahou Josei Madoka Magica",
@@ -70,7 +91,8 @@ const Anime = [
 			depression: 2,
 			shame: 4,
 			fear: -6
-		}
+		},
+		genres: [Genre.PSYCHOLOGICAL, Genre.MAHOUSHOUJO]
 	},
 	{
 		title: "Shoujo Kageki Revue Moonlight",
@@ -79,7 +101,8 @@ const Anime = [
 			depression: -2,
 			shame: 4,
 			fear: -2
-		}
+		},
+		genres: [Genre.SOL, Genre.ROMANCE, Genre.MUSIC]
 	},
 	{
 		title: "Suzumiya Mitsuha no Yuuutsu",
@@ -88,7 +111,8 @@ const Anime = [
 			depression: -2,
 			shame: 4,
 			fear: -2
-		}
+		},
+		genres: [Genre.SOL, Genre.ADVENTURE]
 	},
 	{
 		title: "Suzumiya Mitsuha no Shoushitsu",
@@ -98,7 +122,8 @@ const Anime = [
 			depression: -2,
 			shame: 4,
 			fear: -2
-		}
+		},
+		genres: [Genre.SOL, Genre.ADVENTURE, Genre.DRAMA]
 	},
 	{
 		title: "Fisherman x Fisherman",
@@ -107,7 +132,8 @@ const Anime = [
 			depression: -2,
 			shame: -2,
 			fear: 0
-		}
+		},
+		genres: [Genre.ADVENTURE, Genre.SHOUNENSHIT]
 	},
 	{
 		title: "Bakeshousetsu",
@@ -116,7 +142,8 @@ const Anime = [
 			depression: -3,
 			shame: 5,
 			fear: -3
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Bakeshousetsu Second Season",
@@ -125,7 +152,8 @@ const Anime = [
 			depression: -5,
 			shame: 5,
 			fear: -1
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Niseshousetsu",
@@ -134,7 +162,8 @@ const Anime = [
 			depression: -5,
 			shame: 10,
 			fear: -5
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Bakeshousetsu",
@@ -143,7 +172,8 @@ const Anime = [
 			depression: -3,
 			shame: 6,
 			fear: -3
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Kizushousetsu",
@@ -153,7 +183,8 @@ const Anime = [
 			depression: -3,
 			shame: 6,
 			fear: -3
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Kizushousetsu II",
@@ -163,7 +194,8 @@ const Anime = [
 			depression: -3,
 			shame: 6,
 			fear: -3
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Kizushousetsu III",
@@ -173,7 +205,8 @@ const Anime = [
 			depression: -3,
 			shame: 6,
 			fear: -3
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Tsukishousetsu",
@@ -182,7 +215,8 @@ const Anime = [
 			depression: -2,
 			shame: 4,
 			fear: -2
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Owarishousetsu",
@@ -191,7 +225,8 @@ const Anime = [
 			depression: -3,
 			shame: 6,
 			fear: -3
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Owarishousetsu (Ge)",
@@ -200,7 +235,8 @@ const Anime = [
 			depression: -3,
 			shame: 6,
 			fear: -3
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Zoku Owarishousetsu",
@@ -209,7 +245,8 @@ const Anime = [
 			depression: -3,
 			shame: 6,
 			fear: -3
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Hanashousetsu",
@@ -218,7 +255,8 @@ const Anime = [
 			depression: -2,
 			shame: 2,
 			fear: -1
-		}
+		},
+		genres: [Genre.DRAMA, Genre.COMEDY, Genre.ROMANCE]
 	},
 	{
 		title: "Tetsu no Renkinjutsushi",
@@ -227,7 +265,8 @@ const Anime = [
 			depression: -2,
 			shame: -2,
 			fear: 0
-		}
+		},
+		genres: [Genre.ADVENTURE, Genre.SHOUNENSHIT, Genre.DRAMA]
 	},
 	{
 		title: "Tengen Toppa Luggen Garann",
@@ -236,7 +275,8 @@ const Anime = [
 			depression: -3,
 			shame: -3,
 			fear: -3
-		}
+		},
+		genres: [Genre.ADVENTURE, Genre.SHOUNENSHIT, Genre.MECHA]
 	},
 	{
 		title: "Higurashi no Haka",
@@ -246,7 +286,7 @@ const Anime = [
 			depression: 20,
 			shame: -5,
 			fear: 5
-		}
+		},
+		genres: [Genre.DRAMA]
 	},
-	
 ];

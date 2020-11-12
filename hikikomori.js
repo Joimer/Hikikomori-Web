@@ -59,11 +59,62 @@ function update() {
 	updateClock();
 }
 
-function hpDown(hpDown) {
-	hp -= hpDown;
+function modifyHp(hpChange) {
+	hp += hpChange;
 	if (hp < 1) {
 		hp = 0;
 		gameover();
+	}
+	if (hp > 100) {
+
+	}
+}
+
+function modifyDepression(change) {
+	depression += change;
+	if (depression > 100) {
+		depression = 100;
+		modifyHp(-1);
+		modifyFear(-1);
+		modifyShame(-1);
+	}
+	if (depression < 0) {
+		depression = 0;
+		modifyHp(1);
+		modifyFear(5);
+		modifyShame(5);
+	}
+}
+
+function modifyFear(change) {
+	fear += change;
+	if (fear > 100) {
+		fear = 100;
+		modifyHp(-1);
+		modifyDepression(-1);
+		modifyShame(-1);
+	}
+	if (fear < 0) {
+		fear = 0;
+		modifyHp(1);
+		modifyDepression(5);
+		modifyShame(5);
+	}
+}
+
+function modifyShame(change) {
+	shame += change;
+	if (shame > 100) {
+		shame = 100;
+		modifyHp(-1);
+		modifyFear(-1);
+		modifyDepression(-1);
+	}
+	if (shame < 0) {
+		shame = 0;
+		modifyHp(1);
+		modifyFear(5);
+		modifyDepression(5);
 	}
 }
 
@@ -138,6 +189,17 @@ function advanceBodyClock(m) {
 	addIntestineCount(m);
 }
 
+function sleep() {
+	const sleepHours = 8 + Math.floor(depression / 5);
+	modifyShame(-(sleepHours - 8));
+	sleep = clamp(sleep - sleepPerHour * sleepHours, 0, 100);
+	clock.addHours(sleepHours);
+	write(Text.Sleep);
+	update();
+	write(Text.WakeUp);
+	sleepingEvents();
+}
+
 // Check how many hours they've been awake.
 // If it's in the limit, they fall down asleep, with more negative consequences.
 function checkSleepyness() {
@@ -147,8 +209,8 @@ function checkSleepyness() {
 		// Also HP is affected.
 		clock.addHours(15);
 		sleep -= 10 * sleepPerHour;
-		hpDown(4);
-		depression += 10;
+		modifyHp(-4);
+		modifyDepression(10);
 		write(Text.FallExhausted);
 	}
 }
@@ -189,7 +251,7 @@ function pissYourself() {
 	miction(Math.min(100, bladder));
 	if (bottles <= 0) {
 		write(Text.PeedYourself);
-		hpDown(10);
+		modifyHp(-10);
 	} else {
 		write(Text.PeedBottle);
 		bottles--;
@@ -215,7 +277,7 @@ function selfExecrate() {
 	const remove = Math.min(100, execrate);
 	execrate -= remove;
 	write(Text.CrappedYourself);
-	hpDown(20);
+	modifyHp(-20);
 }
 
 function checkBiologicalNeeds() {
@@ -257,11 +319,14 @@ function sleepingEvents() {
 
 	// Random chance of nightmare with fear.
 	if (rand(1, 100) < Math.floor(fear / 4)) {
-		hpDown(10);
+		modifyHp(-10);
 		depression += 5;
 		fear += 5;
 		write(Text.Nightmare);
 	}
+
+	// TODO
+	// Random cannot move all day event here
 }
 
 // TODO:

@@ -24,16 +24,7 @@ click('bed-use', () => {
 	if (sleep < 19) {
 		write(Text.NotTired);
 	} else {
-		// TODO: The more depressed, the more you sleep.
-		// With negative effects, of course.
-		let sleepHours = 8;
-		sleep -= sleepPerHour * sleepHours;
-		clock.addHours(sleepHours);
-		write(Text.Sleep);
-		update();
-		write(Text.WakeUp);
-		// Random cannot move all day event here
-		sleepingEvents();
+		sleep();
 	}
 });
 
@@ -82,7 +73,7 @@ click('manga-library-use', () => {
 	let t = 0;
 	let manga = {};
 	if (reading !== null && rand(1,10) === 6) {
-		write(printf(Text.DroppedManga, reading.title, t));
+		write(printf(Text.DroppedManga, reading.manga.title, t));
 		reading = null;
 	}
 	if (reading === null) {
@@ -115,9 +106,9 @@ click('manga-library-use', () => {
 	}
 
 	advanceBodyClock(t);
-	depression += manga.effects.depression;
-	shame += manga.effects.shame;
-	fear += manga.effects.fear;
+	modifyDepression(manga.effects.depression);
+	modifyShame(manga.effects.shame);
+	modifyFear(manga.effects.fear);
 	write(Text.ReadManga.replace('%s', manga.title).replace('%t', t));
 
 	update();
@@ -163,9 +154,9 @@ click('anime-library-use', () => {
 	}
 
 	advanceBodyClock(t);
-	depression += anime.effects.depression;
-	shame += anime.effects.shame;
-	fear += anime.effects.fear;
+	modifyDepression(anime.effects.depression);
+	modifyShame(anime.effects.shame);
+	modifyFear(anime.effects.fear);
 	write(printf(Text.WatchAnime, anime.title, t));
 
 	update();
@@ -186,9 +177,9 @@ click('imageboard-shitpost', () => {
 	advanceBodyClock(shitpost.duration);
 	write(Text.Shitposting);
 	write(Text[shitpost.id]);
-	depression += shitpost.effects.depression;
-	shame += shitpost.effects.shame;
-	fear += shitpost.effects.fear;
+	modifyDepression(shitpost.effects.depression);
+	modifyShame(shitpost.effects.shame);
+	modifyFear(shitpost.effects.fear);
 	update();
 });
 
@@ -203,7 +194,8 @@ click('imageboard-memes', () => {
 	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.DankMemes);
-	depression -= 1;
+	modifyDepression(-1);
+	modifyShame(1);
 	update();
 });
 
@@ -211,9 +203,9 @@ click('imageboard-creepy', () => {
 	if (!gameActive) return;
 	lastAction = 0;
 	write(Text.Creepypastas);
-	depression -= 1;
-	fear += 2;
-	shame += 1;
+	modifyDepression(-1);
+	modifyFear(2);
+	modifyShame(1);
 	update();
 });
 
@@ -229,9 +221,9 @@ click('computer-forums', () => {
 	lastAction = 0;
 	write(Text.Forums);
 	advanceBodyClock(120);
-	depression -= 1;
-	fear -= 1;
-	shame += 2;
+	modifyDepression(-1);
+	modifyFear(-1);
+	modifyShame(2);
 	update();
 });
 
@@ -240,9 +232,9 @@ click('computer-tvs', () => {
 	lastAction = 0;
 	write(Text.TvSeries);
 	advanceBodyClock(65);
-	depression += 2;
-	fear -= 1;
-	shame -= 1;
+	modifyDepression(2);
+	modifyFear(-1);
+	modifyShame(-1);
 	update();
 });
 
