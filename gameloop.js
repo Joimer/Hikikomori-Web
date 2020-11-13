@@ -18,6 +18,9 @@
 				advanceBodyClock(1);
 				timeSinceParents += dt;
 				dt -= 1.0;
+				cssClass('depression-wrap', '');
+				cssClass('fear-wrap', '');
+				cssClass('shame-wrap', '');
 				update();
 			}
 			checkIdle();

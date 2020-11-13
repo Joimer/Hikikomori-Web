@@ -5,3 +5,75 @@
 .green {
     color: #060
 }
+
+.text {
+    float: right;
+    width: 75%;
+    overflow: auto;
+}
+
+.black-border {
+    border: 1px solid #000;
+}
+
+.game-area {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 0.1fr 1fr 0.1fr;
+    grid-gap: 1rem;
+    width: 100vw;
+    height: 100vh;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+/* First row */
+.header {
+    grid-column-start: 1;
+    grid-column-end: span 3;
+}
+
+/*.row2 {
+    grid-column-start: 1;
+    grid-column-end: span 3;
+}*/
+
+/* Third row */
+.footer {
+    grid-column-start: 1;
+    grid-column-end: span 3;
+    text-align: center;
+    border: 1px solid #222;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/*
+ Row2, column 1
+*/
+.stats {
+    grid-row-start: 2;
+    grid-row-end: span 1;
+    grid-column-start: 1;
+    grid-column-end: span 1;
+}
+
+/*
+ Row2, column 2
+*/
+.events {
+    grid-row-start: 2;
+    grid-row-end: span 1;
+    grid-column-start: 2;
+    grid-column-end: span 1;
+}
+
+/*
+ Row2, column 3
+*/
+.column3 {
+    grid-row-start: 2;
+    grid-row-end: span 1;
+    grid-column-start: 3;
+    grid-column-end: span 1;
+}

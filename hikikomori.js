@@ -57,9 +57,6 @@ function update() {
 	checkBiologicalNeeds();
 	updateStats();
 	updateClock();
-	cssClass('depression-wrap', '');
-	cssClass('fear-wrap', '');
-	cssClass('shame-wrap', '');
 }
 
 function modifyHp(hpChange) {
