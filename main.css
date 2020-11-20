@@ -61,7 +61,7 @@
 /*
  Row2, column 2
 */
-.events {
+.controls {
     grid-row-start: 2;
     grid-row-end: span 1;
     grid-column-start: 2;
@@ -71,7 +71,7 @@
 /*
  Row2, column 3
 */
-.column3 {
+.events {
     grid-row-start: 2;
     grid-row-end: span 1;
     grid-column-start: 3;

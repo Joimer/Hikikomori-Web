@@ -53,5 +53,6 @@ const Text = {
 	Drank: "You drank some water. Refreshing!",
 	NoDrinkBottles: "You have nothing to drink.",
 	Parents: "Your parents left food and water in your door.",
-	Nightmare: "You had a horrible nightmare. You woke up drenched in cold sweat, trembling, in despair. It was not about monsters, ghosts, or dying--merely about staying as you are now, forever."
+	Nightmare: "You had a horrible nightmare. You woke up drenched in cold sweat, trembling, in despair. It was not about monsters, ghosts, or dying--merely about staying as you are now, forever.",
+	Vidya: "Gamers rise up! You play %s for %t.",
 };

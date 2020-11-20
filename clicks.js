@@ -211,8 +211,15 @@ click('imageboard-creepy', () => {
 
 click('computer-vidya', () => {
 	if (!gameActive) return;
-	// TODO: Something like anime, manga, so on.
 	lastAction = 0;
+	let r = rand(0, Vidya.length - 1);
+	let geemu = Vidya[r];
+	let time = geemu.averageGame;
+	advanceBodyClock(time);
+	modifyDepression(geemu.effects.depression);
+	modifyShame(geemu.effects.shame);
+	modifyFear(geemu.effects.fear);
+	write(printf(Text.Vidya, geemu.title, time));
 	update();
 });
 
